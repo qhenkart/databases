@@ -23,11 +23,15 @@ exports.insert = function(table, body){
 
 exports.retrieve = function(table, callback){
   init();
-  db.query("SELECT * FROM " + table, function(err, result){
+
+  db.query("SELECT * FROM messages join users on messages.userID = users.id", function(err, result){
     if (err) console.log("err", err);
     console.log(result);
     callback(result)
   });
 }
+
+  // db.query("SELECT * FROM " + table, function(err, result){
+
 
 
