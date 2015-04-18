@@ -1,0 +1,237 @@
+body {
+    background: #ECF3F9;
+}
+
+/***********************/
+/* TOP NAVIGATION BAR */
+/*********************/
+
+.navbar {
+    background: #145184;
+}
+.navbar-brand, .navbar-brand:active, .navbar-brand:visited {
+    color: white;
+    font-family: 'Arvo', serif;
+    font-size: 2em;
+    font-weight: bold;
+}
+.navbar-brand:hover {
+    color: #DFDFDF;
+}
+
+
+/***********************/
+/*    MAIN CONTENT    */
+/*********************/
+
+#main {
+    margin-top: 80px;
+}
+.main-col {
+    min-height: 600px;
+    font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
+    padding: 0 0 25px 0;
+    margin-bottom: 100px;
+}
+
+.main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+.main .success {
+    margin-top: 25px;
+}
+
+.main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+
+/***********************/
+/*     ROOM INFO      */
+/*********************/
+
+.room-info {
+    margin-bottom: 20px;
+
+}
+.room-info h1 {
+    display: inline-block;
+    margin: 0;
+}
+.room-info .right {
+    float: right;
+    margin-top: 5px;
+}
+.room-info h1 {
+
+}
+
+.dropdown {
+    float: left;
+}
+.dropdown h3 {
+    font-size: 0.9em;
+}
+.addRoom {
+    float: left;
+    margin: 9px 0 0 10px;
+    font-size: 0.9em;
+    color: #5BC0DE;
+}
+.addRoom:hover{
+    cursor: pointer;
+}
+
+
+/***********************/
+/*   NEW POST FORM    */
+/*********************/
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 5px;
+}
+.new-post-con {
+    border-radius: 5px;
+    border: 1px solid #979797;
+    background: #F2F2F2;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.new-post-con h1 {
+    margin: 0;
+    font-size: 1.2em;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.new-post-con h4 {
+    float: right;
+    font-size: 0.9em;
+    color: #808080;
+    margin-top: 2px;
+}
+
+.new-post {
+    /*overflow: auto;*/
+}
+.new-post textarea, .new-post textarea:focus {
+    resize: none;
+    height: 35px;
+    outline: none;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+.new-post textarea::-webkit-input-placeholder {  color: #C4C4C4;}
+.expanded { height: 75px; }
+
+.new-post button {
+    float: right;
+    margin-top: 10px;
+    display: block;
+}
+
+.postingAs:hover {
+    cursor: pointer;
+}
+.options{
+    height: 50px;
+}
+
+
+/***********************/
+/*     POSTS FEED     */
+/*********************/
+
+#chats {
+    border: 1px solid #979797;
+    border-radius: 5px;
+    background: white;
+    min-height: 500px;
+}
+
+.chat {
+    border-bottom: 1px solid #C0C0C0;
+    padding: 15px 20px;
+}
+
+.friend {
+    font-weight: bold;
+}
+.chat .username {
+    font-weight: 600;
+    color: #1E5473;
+    display: inline-block;
+    cursor: pointer;
+}
+.chat .footer {
+    font-size: 0.85em;
+    color: #B2B2B2;
+}
+.chat .created, .chat .room {
+    display: inline-block;
+}
+.chat .room {
+    /*display: none;*/
+    margin-left: 15px;
+}
+.chat .roomname {
+    font-weight: 500;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+.template {
+    display: none;
+}
+.roomname:hover {
+    cursor: pointer;
+    color: #5BC0DE;
+}
+
+
+
+/***********************/
+/*    FRIENDS LIST    */
+/*********************/
+
+.friends-box {
+    border-radius: 5px;
+    border: 1px solid #979797;
+    background: white;
+    padding: 20px;
+}
+.friends-box h1 {
+    margin: 0;
+    font-size: 1.2em;
+}
+.friends-box ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.friends-box .instructions {
+    font-size: 0.7em;
+    font-style: italic;
+    color: grey;
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+
+

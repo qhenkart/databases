@@ -3,9 +3,25 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
-  /* Describe your table here.*/
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT,
+  `text` varchar(200),
+  `roomID` INT,
+  `timeStamp` TIMESTAMP
 );
 
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(15),
+  `avatar` varchar(30)
+);
+
+CREATE TABLE rooms (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(15),
+  `description` varchar(200),
+  `image` varchar(30)
+);
 /* Create other tables and define schemas for them here! */
 
 
