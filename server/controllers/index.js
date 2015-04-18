@@ -7,7 +7,7 @@ var utils = require('../helpers/utils');
 module.exports = {
   messages: {
     get: function (request, response) {
-      // models.messages.get(request)
+      models.messages.get(response);
     }, // a function which handles a get request for all messages
     post: function (request, response) {
       models.messages.post(request.body)
@@ -16,9 +16,8 @@ module.exports = {
   },
 
   users: {
-    // Ditto as above
     get: function (request, response) {
-      // utils.sendResponse(response, {results: messages});
+      models.messages.get(request);
     },
     post: function (request, response) {
       models.users.post(request.body)

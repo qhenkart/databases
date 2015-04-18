@@ -1,13 +1,13 @@
 var app = {};
+// app.server = 'https://api.parse.com/1/classes/chatterbox';
 
-
-app.server = 'https://api.parse.com/1/classes/chatterbox';
+app.server = 'http://127.0.0.1:3000'
 
 app.send = function(msgObj){
-  
+
   $.ajax({
     // always use this url
-    url: 'https://api.parse.com/1/classes/chatterbox',
+    url: app.server + '/classes/messages',
     type: 'POST',
     data: JSON.stringify(msgObj),
     contentType: 'application/json',
@@ -34,11 +34,11 @@ app.addMessage = function(message){
 app.fetch = function() {
 
   $.ajax({
-    url: this.server,
+    url: app.server + '/classes/messages',
     type: 'GET',
-    data: {order: '-updatedAt'},
+    //data: {order: '-updatedAt'},
     contentType: 'application/json',
-    
+
     success: function (data) {
 
       $.each(data.results, function(i, item) {
@@ -70,11 +70,11 @@ app.fetch = function() {
 app.fetchRoom = function(room) {
 
   $.ajax({
-    url: this.server,
+    url: app.server,
     type: 'GET',
-    data: 'where={"roomname":"' + room + '"}', order: '-updatedAt',
+    // data: 'where={"roomname":"' + room + '"}', order: '-updatedAt',
     contentType: 'application/json',
-    
+
     success: function (data) {
 
       $.each(data.results, function(i, item) {
@@ -179,7 +179,7 @@ app.changeName = function(){
     }
 
     $('.username-modal').modal('hide');
-    
+
   });
 }
 
@@ -227,9 +227,9 @@ app.init = function() {
   app.createRoom();
   app.changeRoom();
   app.changeName();
-  
-  
-  
+
+
+
   // WHEN YOU CLICK ON THE LOGO
   $('.navbar-brand').on('click', function(){
     app.clearMessages();
