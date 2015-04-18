@@ -14,7 +14,7 @@ app.send = function(msgObj){
     success: function (data) {
       console.log('chatterbox: Message sent');
       var timeStamp = moment(data.createdAt).calendar();
-      $('#chats').prepend('<div class="chat"><div class="username">' + msgObj.userID + '</div><p class="text">' + msgObj.text + '</p><div class="footer"><div class="created">' + timeStamp + '</div><div class="room">' + msgObj.roomID + '</div></div></div>');
+      $('#chats').prepend('<div class="chat"><div class="username">' + msgObj.username + '</div><p class="text">' + msgObj.text + '</p><div class="footer"><div class="created">' + timeStamp + '</div><div class="room">' + msgObj.roomname + '</div></div></div>');
     },
     error: function (data) {
       // see: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -26,8 +26,8 @@ app.send = function(msgObj){
 app.addMessage = function(message){
     var timeCreated = moment(this.timeStamp).calendar();
     var room = "";
-    if(this.roomID) {
-      room = "Room: <span class='roomname'>" + this.roomID + "</span>";
+    if(this.roomname) {
+      room = "Room: <span class='roomname'>" + this.roomname + "</span>";
     }
     $('#chats').append('<div class="chat"><div class="username">' + this.username + '</div><p class="text">' + this.text + '</p><div class="footer"><div class="created">' + timeCreated + '</div><div class="room">' + room + '</div></div></div>');
 };
@@ -46,9 +46,9 @@ app.fetch = function() {
         //   item.username = item.username.replace('<', '&lt;');
         //   item.username = item.username.replace('>', '&gt;');
         // }
-        if(this.roomID !== undefined){
-          if(app.rooms.indexOf(this.roomID) === -1){
-            app.addRoom(this.roomID);
+        if(this.roomname !== undefined){
+          if(app.rooms.indexOf(this.roomname) === -1){
+            app.addRoom(this.roomname);
           }
         }
         if(item.text){
@@ -70,24 +70,20 @@ app.fetch = function() {
 app.fetchRoom = function(room) {
 
   $.ajax({
-    url: app.server,
+    url: app.server + '/classes/messages',
     type: 'GET',
-    // data: 'where={"roomname":"' + room + '"}', order: '-updatedAt',
     contentType: 'application/json',
 
     success: function (data) {
 
-      $.each(data.results, function(i, item) {
-        if(item.username){
-          item.username = item.username.replace('<', '&lt;');
-          item.username = item.username.replace('>', '&gt;');
-        }
+      $.each(data, function(i, item) {
+
         if(this.roomname){
           if(app.rooms.indexOf(this.roomname) === -1){
             app.addRoom(this.roomname);
           }
         }
-        if(item.text){
+        if(item.text && this.roomname === room){
           item.text = item.text.replace('<', '&lt;');
           item.text = item.text.replace('>', '&gt;');
           app.addMessage.call(this, item);
@@ -128,11 +124,9 @@ app.handleSubmit = function(){
   $('.submit').on('click', function(event){
     event.preventDefault();
     var msgObj = {};
-    // msgObj.username = app.username;
-    msgObj.userID = app.userID;
+    msgObj.username = app.username;
     msgObj.text = textarea.val();
-    // msgObj.roomname = app.room;
-    msgObj.roomID = 0;
+    msgObj.roomname = app.room;
     app.send(msgObj);
     textarea.focusout();
     textarea.val('');
@@ -166,9 +160,6 @@ app.createRoom = function(){
   });
 };
 
-app.username = "Anonymous";
-// --> TODO - create a new user upon start
-
 app.changeName = function(){
   $('.postingAs').on('click', function(){
     $('.username-modal').modal('show');
@@ -189,8 +180,6 @@ app.changeName = function(){
   });
 }
 
-// app.userName = ["quest", 5]
-
 app.newUser = function(){
   $('.username-modal').modal('show');
 
@@ -200,33 +189,22 @@ app.newUser = function(){
     if(newName){
       $('.posting-name').text(newName);
 
+      app.userName = newName;
+      localStorage.setItem('username', newName);
+
+
       $.ajax({
         url: app.server + '/classes/users',
         type: 'POST',
         data: JSON.stringify({username: newName}),
         contentType: 'application/json',
         success: function (data) {
-          console.log('User created.');
+          console.log('User created: ', data);
         },
         error: function (data) {
           console.error('Failed to create user.');
         }
       });
-
-      $.ajax({
-        url: app.server + '/classes/users',
-        type: 'GET',
-        data: JSON.stringify({username: newName}),
-        contentType: 'application/json',
-        success: function (data) {
-          console.log('User created.');
-        },
-        error: function (data) {
-          console.error('Failed to create user.');
-        }
-      });
-
-
 
       // TODO -- call a function to update user's name
       // that updates the User table in the DB
@@ -276,7 +254,12 @@ app.clickRoom = function(){
 
 app.init = function() {
   $('.posting-name').text(app.username);
-  app.newUser();
+  if (localStorage.getItem("username")){
+    app.username = localStorage.getItem("username")
+    $('.posting-name').text(app.username);
+  }else{
+    app.newUser();
+  }
   app.fetch();
   app.handleSubmit();
   app.createRoom();

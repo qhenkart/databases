@@ -6,7 +6,7 @@ CREATE TABLE messages (
   id INT AUTO_INCREMENT PRIMARY KEY,
   `userID` INT,
   `text` varchar(200),
-  `roomID` INT,
+  `roomname` varchar(30),
   `timeStamp` TIMESTAMP
 );
 

@@ -13,9 +13,10 @@ var init = function(){
   db.connect();
 }
 
-exports.insert = function(table, body){
+exports.insert = function(queryStr, params){
   init();
-  db.query("INSERT INTO "+ table +" SET ?", body, function(err, result){
+
+  db.query(queryStr, params, function(err, result){
     if(err) console.log("error", err);
     console.log(result);
   });
